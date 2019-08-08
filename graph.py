@@ -298,6 +298,7 @@ class ArrayGraph(object):
         If v is adjacent to every other vertex already in the clique.
         	Add v to the clique
         	Discard v otherwise
+        Runtime: O(n^3)
         """
         start = self.getVertex(vert) # Root
 
@@ -306,6 +307,38 @@ class ArrayGraph(object):
         clique = set()
         clique.add(start)
 
+        for vertex in vertices - clique:
+            neighbor_of_all = True
+            for v in clique:
+                if vertex not in v.get_neighbors():
+                    # print("Vertex {} and Vertex {} are not neighbors".format(vertex, v))
+                    neighbor_of_all = False
+            if neighbor_of_all == True:
+                clique.add(vertex)
+
+        return list(clique)
+
+    def find_all_champs_same_class_as(self, vert):
+        """
+        Start with an arbitrary vertex u and add it to the clique
+
+        For v in remaining vertices not in the clique
+        If v is adjacent to every other vertex already in the clique.
+        	Add v to the clique
+        	Discard v otherwise
+        Runtime: O(n^3)
+        """
+        start = self.getVertex(vert) # Root
+
+        vertices = set(self.getVertices())
+
+        clique = set()
+        clique.add(start)
+
+        for class_ in start.champ.classes:
+            print("CLASS:", class_)
+        return
+        
         for vertex in vertices - clique:
             neighbor_of_all = True
             for v in clique:

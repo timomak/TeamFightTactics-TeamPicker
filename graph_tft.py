@@ -147,6 +147,7 @@ def main():
     print("STARTING")
     team_picker = TFT_team_picker('champions.json', 'classes.json')
     print(team_picker)
+    print(team_picker.graph.find_all_champs_same_class_as('aatrox'))
 
 if __name__ == '__main__':
     main()
