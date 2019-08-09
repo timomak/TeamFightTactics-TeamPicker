@@ -10,6 +10,28 @@ I will be modeling a Graph ADT (Abstract Data Structure) to take in data of all 
 
 ## Project Problems
 
-* Based on your current champion
-  * Which class should you complete first.
-* What class should be built next, depending on the number of slots left after completing the first class.
+* Which champions should I build based on your first champion?
+* Which champions should I keep an eye for? (Must have champions)
+* Which items go well with my first champion?
+
+# Usage
+## Run
+```
+python graph_tft.py
+```
+
+## Input (example)
+```
+First Champ:tristana
+```
+
+## Output (example)
+```
+TRISTANA's classes are: ['yordle', 'gunslinger']
+
+For YORDLE class:['poppy', 'veigar', 'gnar', 'lulu', 'kennen', 'tristana']
+
+For GUNSLINGER class:['lucian', 'missfortune', 'gangplank', 'graves', 'tristana']
+
+Best Item Combination for TRISTANA: ['titanichydra', 'cursedblade', 'redbuff']
+```
