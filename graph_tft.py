@@ -86,6 +86,8 @@ class TFT_team_picker(object):
 
         self.extract_data_from_(self.first_champ_class_selection) # O(441) Prints data.
 
+        self.graph.find_important_data(self.first_champ)
+
     def create_champ_list(self, filename):
         """
         Using the JSON file and the champions class, make a list containing all the champions.

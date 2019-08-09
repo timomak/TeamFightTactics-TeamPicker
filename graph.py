@@ -358,8 +358,6 @@ class ArrayGraph(object):
                                     neighbor_of_all = False
                             if neighbor_of_all == True:
                                 clique.add(vertex)
-                    # else:
-                    #     break
 
                 array_of_champs[class_] = clique # O(1)
         return array_of_champs
@@ -371,8 +369,6 @@ class ArrayGraph(object):
         """
         vertex = self.getVertex(vert)
 
-        stats = vertex.champ.stats
+        items = vertex.champ.items
 
-        abilities = vertex.champ.ability
-
-        print(stats, abilities)
+        print("Best Item Combination for {}: {}".format(vert.upper(),items))
