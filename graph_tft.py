@@ -80,6 +80,12 @@ class TFT_team_picker(object):
         self.graph = ArrayGraph(self.champions)
         self._add_edges()
 
+        self.first_champ = input("First Champ:").lower() # User inputs key for first champion
+
+        self.first_champ_class_selection = self.graph.find_all_champs_same_class_as(self.first_champ) # O(6273) { 'yordle': set('kennen', ...), ...}
+
+        self.extract_data_from_(self.first_champ_class_selection) # O(441) Prints data.
+
     def create_champ_list(self, filename):
         """
         Using the JSON file and the champions class, make a list containing all the champions.
@@ -140,6 +146,29 @@ class TFT_team_picker(object):
                         # print("Champ 1: {}, Champ 2: {}".format(champ,champ_of_same_class))
                         self.graph.addEdge(fromVert=champ, toVert=champ_of_same_class) # Connect Champ and all the champs of same class.
 
+    def extract_data_from_(self, matches):
+        """
+        Find champions that are repeated within the first_champ_class_selection dict.
+        Runtime: O(441) = O(3) * O(7) * O(21)
+        """
+        all_matching_class_champions = []
+        doubles = []
+        for class_ in matches.keys(): # O(3) Worse
+            champs_in_class_ = [i.champ.key_ for i in matches[class_]]
+            print("For {} class:{}\n".format(class_.upper(), champs_in_class_))
+            for champ in matches[class_]: # O(7) Worse
+                if champ not in all_matching_class_champions: # O(21) Worse
+                    all_matching_class_champions.append(champ)
+                else:
+                    if champ.champ.key_ != self.first_champ:
+                        doubles.append(champ)
+
+        # print("All Mathcing Champs:", all_matching_class_champions)
+        # print("Doubles:",doubles)
+        if len(doubles) > 0:
+            print("MUST GET:", [c.champ.key_ for c in doubles], "\n")
+
+
     def __repr__(self):
         """Return a string represenation of this Champion"""
         return 'TFT(Champion Count: {!r}, Classes Count: {})'.format(len(self.champions), len(self.classes))
@@ -150,14 +179,6 @@ def main():
     """
     print("STARTING")
     team_picker = TFT_team_picker('champions.json', 'classes.json')
-    print(team_picker.graph.getVertex('gnar').champ.classes)
-    # print(team_picker.graph.vertices[0].edges)
-
-    first_champ = input("First Champ:")
-    first_champ_class_selection = team_picker.graph.find_all_champs_same_class_as(first_champ) # O(6273) { 'yordle': set('kennen', ...), ...}
-
-
-    # for class_ in first_champ_class_selection.keys():
 
 if __name__ == '__main__':
     main()

@@ -329,6 +329,7 @@ class ArrayGraph(object):
         array_of_champs = {} # { 'yordle': set('kennen', ...), ...}
 
         # print("All of {}'s classes: {}".format(vert, start.champ.classes))
+        print("\n{}'s classes are: {}\n".format(vert.upper(), start.champ.classes))
 
         for class_ in start.champ.classes: # O(3) Worst Case
             if class_ != None:
@@ -362,3 +363,16 @@ class ArrayGraph(object):
 
                 array_of_champs[class_] = clique # O(1)
         return array_of_champs
+
+    def find_important_data(self, vert):
+        """
+        Find all champs for each champ class in vert.champ
+        Runtime: O(3) * O(51) * (O(3) + O(3) + (O(5) * O(7)) = O(6273)
+        """
+        vertex = self.getVertex(vert)
+
+        stats = vertex.champ.stats
+
+        abilities = vertex.champ.ability
+
+        print(stats, abilities)
