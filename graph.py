@@ -320,39 +320,39 @@ class ArrayGraph(object):
 
     def find_all_champs_same_class_as(self, vert):
         """
-        Find all champs for each champ class.
-        Runtime: O(n^3)
+        Find all champs for each champ class in vert.champ
+        Runtime: O(3) * O(51) * (O(3) + O(3) + (O(5) * O(7)) = O(6273)
         """
         start = self.getVertex(vert) # Root
 
         checked_classes = set()
         array_of_champs = {} # { 'yordle': set('kennen', ...), ...}
 
-        print("All of {}'s classes: {}".format(vert, start.champ.classes))
+        # print("All of {}'s classes: {}".format(vert, start.champ.classes))
 
-        for class_ in start.champ.classes:
+        for class_ in start.champ.classes: # O(3) Worst Case
             if class_ != None:
-                print("Checking {} class".format(class_))
+                # print("Checking {} class".format(class_))
                 vertices = set(self.getVertices())
 
                 clique = set()
                 clique.add(start)
 
-                for vertex in vertices - clique:
-                    print("Comparing {} to {}".format(vert, vertex))
-                    if class_ in vertex.champ.classes:
+                for vertex in vertices - clique: # O(51) Worst
+                    # print("Comparing {} to {}".format(vert, vertex))
+                    if class_ in vertex.champ.classes: # O(3) Worse
                         matching_classes = set(start.champ.classes).intersection(set(vertex.champ.classes))
                         has_unchecked_match = False
 
-                        for match in matching_classes:
+                        for match in matching_classes: # O(3) Worse
                             if match not in checked_classes:
                                 has_unchecked_match = True
-                                print("{} matches to {} by {} class".format(vertex, vert, match))
+                                # print("{} matches to {} by {} class".format(vertex, vert, match))
 
                         if has_unchecked_match == True:
                             neighbor_of_all = True
-                            for v in clique:
-                                if vertex not in v.get_neighbors():
+                            for v in clique: # O(5) Worse
+                                if vertex not in v.get_neighbors(): # O(7) Worse
                                     # print("Vertex {} and Vertex {} are not neighbors".format(vertex, v))
                                     neighbor_of_all = False
                             if neighbor_of_all == True:
@@ -360,50 +360,5 @@ class ArrayGraph(object):
                     # else:
                     #     break
 
-                array_of_champs[class_] = clique
+                array_of_champs[class_] = clique # O(1)
         return array_of_champs
-
-
-
-
-
-                #     can_continue = True
-                #     has_matching_class = False
-                #     print("Comparing {}'s classes to {}'s classes".format(vert, vertex))
-                #     if class_ in vertex.champ.classes:
-                #         has_matching_class = True
-                #         print("{}'s class matches {}'s class".format(vert, vertex))
-                #
-                #         if len(set(vertex.champ.classes) - set(checked_classes)) > 0:
-                #             print("{} and {} match by {} class and {} was already checked.".format(vert, vertex, champ_2_class, champ_2_class))
-                #             can_continue = False
-                #             break
-                #
-                #     if can_continue == True and has_matching_class == True:
-                #         print("{} is a {}".format(vertex, class_))
-                #         neighbor_of_all = True
-                #         for v in clique:
-                #             if vertex not in v.get_neighbors():
-                #                 # print("Vertex {} and Vertex {} are not neighbors".format(vertex, v))
-                #                 neighbor_of_all = False
-                #         if neighbor_of_all == True:
-                #             clique.add(vertex)
-                #
-                #     array_of_champs.append((class_, clique))
-                #     # print("New clique:", clique)
-                #
-                # checked_classes.add(class_)
-                # print("CHECKED", checked_classes)
-                # clique = set()
-
-
-
-
-        # return array_of_champs
-
-    # def find_all_champs_same_class_as(self, vert):
-    #     """
-    #     Find all champs for each champ class.
-    #     Runtime: O(n^3)
-    #     """
-    #     start = self.getVertex(vert) # Root

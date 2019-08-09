@@ -140,17 +140,6 @@ class TFT_team_picker(object):
                         # print("Champ 1: {}, Champ 2: {}".format(champ,champ_of_same_class))
                         self.graph.addEdge(fromVert=champ, toVert=champ_of_same_class) # Connect Champ and all the champs of same class.
 
-    def find_all_champs_same_class_as(self, champ_key):
-            """
-            Find all champs for each champ class.
-            Runtime:
-            """
-            start = self.graph.getVertex(vert) # Root
-
-            for class_ in start.champ.classes:
-                if class_ != None:
-                    pass
-
     def __repr__(self):
         """Return a string represenation of this Champion"""
         return 'TFT(Champion Count: {!r}, Classes Count: {})'.format(len(self.champions), len(self.classes))
@@ -163,7 +152,12 @@ def main():
     team_picker = TFT_team_picker('champions.json', 'classes.json')
     print(team_picker.graph.getVertex('gnar').champ.classes)
     # print(team_picker.graph.vertices[0].edges)
-    print(team_picker.graph.find_all_champs_same_class_as('kennen'))
+
+    first_champ = input("First Champ:")
+    first_champ_class_selection = team_picker.graph.find_all_champs_same_class_as(first_champ) # O(6273) { 'yordle': set('kennen', ...), ...}
+
+
+    # for class_ in first_champ_class_selection.keys():
 
 if __name__ == '__main__':
     main()
